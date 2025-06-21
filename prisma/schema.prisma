@@ -25,6 +25,14 @@ model Query {
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  status      Status   @default(OPEN)
   form_data   FormData @relation(fields: [formDataId], references: [id])
-  formDataId  String
+  formDataId  String   @db.Uuid
+
+  @@map("query")
+}
+
+enum Status {
+  RESOLVED
+  OPEN
 }
