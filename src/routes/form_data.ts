@@ -21,7 +21,7 @@ async function formDataRoutes(app: FastifyInstance) {
         reply.send({
           total: formData.length,
           formData,
-          query
+          query: query ? query : undefined,
         })
       } catch (err: any) {
         log.error({ err }, err.message)
