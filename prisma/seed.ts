@@ -17,7 +17,16 @@ const createAllRecords = async () => {
   // Deletion order is important due to non-null relation constraints.
   const data = await getSeedData()
   await client.formData.createMany({ data: data.formData })
-  await client.query.createMany({ data: data.queries })
+  for (const queryObj of data.queries) {
+    await client.query.create({
+      data: {
+        ...queryObj,
+        formData: {
+          connect: { id: queryObj.formDataId },
+        },
+      },
+    })
+  };
 
   console.log('All records created')
 }

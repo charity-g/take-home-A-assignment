@@ -5,7 +5,6 @@ import {
   useMantineReactTable,
 } from 'mantine-react-table'
 import { FormData, MantineHeader } from './types'
-import { use } from 'react'
 import { MantineProvider } from '@mantine/core'
 
 export default function DataTableClient({columns, data} : {
@@ -43,5 +42,5 @@ export default function DataTableClient({columns, data} : {
             }}
             >
                 <MantineReactTable table={table} />
-            </MantineProvider>);
+            </MantineProvider>)
 }
