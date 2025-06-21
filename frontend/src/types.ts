@@ -13,3 +13,9 @@ export type Query = {
   formData?: FormData,
   formDataId: string
 }
+
+export type MantineHeader = {
+  accessorKey: string,
+  header: string,
+}
+  

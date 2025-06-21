@@ -1,52 +1,30 @@
-'use client'
+'use server'
+import { FormData, MantineHeader } from './types'
+import { Suspense } from 'react'
+import DataTableClient from './data-table-client'
 
-import { useMemo, useState } from 'react'
-import import_data from '../form_data.json'
-import { FormData } from './types'
-import {
-  MantineReactTable,
-  useMantineReactTable,
-  type MRT_ColumnDef,
-} from 'mantine-react-table'
-import { useMantineTheme } from '@mantine/core'
+export default async function DataTable() {
+  const response = await fetch('http://127.0.0.1:8080/form-data');
+  const data = (await response.json())['data']['formData'] as FormData[];
+  console.log('Data fetched:', data);
 
-export default function DataTable() {
-  const { colorScheme } = useMantineTheme();
-  const [data, setData] = useState<FormData[]>(import_data as FormData[])
-
-  const columns = useMemo<MRT_ColumnDef<FormData>[]>(
-    () => [
-      {
-        accessorKey: 'question',
-        header: 'Question',
-      },
-      {
-        accessorKey: 'answer',
-        header: 'Answer',
-      },
-    ],
-    []
-  )
-
-  const table = useMantineReactTable({
-    columns,
-    data,
-    mantineTableProps: {
-      highlightOnHover: false,
-      withColumnBorders: true,
-      withBorder: colorScheme === 'dark',
-      sx: {
-        'thead > tr': { backgroundColor: 'inherit' },
-        'thead > tr > th': { backgroundColor: 'inherit' },
-        'tbody > tr > td': { backgroundColor: 'inherit' },
-      },
+  const columns : MantineHeader[] = [
+    {
+      accessorKey: 'question',
+      header: 'Question',
     },
-  })
+    {
+      accessorKey: 'answer',
+      header: 'Answer',
+    },
+  ];
 
   return (
     <div className="min-h-screen">
       <div className="container mx-auto p-6">
-        <MantineReactTable table={table} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DataTableClient columns={columns} data={data} />
+        </Suspense>
       </div>
     </div>
   )
