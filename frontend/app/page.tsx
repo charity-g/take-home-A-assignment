@@ -7,7 +7,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Header />
       <div className="container mx-auto p-6">
-        {/* <DataTable /> */}
+        <DataTable />
       </div>
     </div>
   )
