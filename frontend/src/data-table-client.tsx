@@ -1,15 +1,17 @@
 'use client'
+import { useMantineTheme } from '@mantine/core'
 import {
   MantineReactTable,
   useMantineReactTable,
 } from 'mantine-react-table'
 import { FormData, MantineHeader } from './types'
-import { use } from 'react'
 
-export default function DataTableClient({columns, dataPromise} : {
+export default function DataTableClient({columns, data} : {
   columns: MantineHeader[],
-  dataPromise: Promise<FormData[]>}) {
-  const data = use(dataPromise);
+  dataPromise: FormData[]}) {
+  const theme = useMantineTheme();
+
+  const isDark = theme.colorScheme === 'dark';
 
   const table = useMantineReactTable({
     columns: columns.map(col => {
@@ -20,8 +22,8 @@ export default function DataTableClient({columns, dataPromise} : {
           Cell: ({ cell }: any) => (
             <span
               style={{
-                background: '#f8d7da',
-                color: '#c82333',
+                background: isDark ? '#3b2323' : '#f8d7da',
+                color: isDark ? '#ffb4b4' : '#c82333',
                 borderRadius: 12,
                 padding: '2px 12px',
                 fontWeight: 600,
@@ -40,7 +42,7 @@ export default function DataTableClient({columns, dataPromise} : {
           Cell: ({ cell }: any) => (
             <span
               style={{
-                color: '#2dd4bf',
+                color: isDark ? '#2dd4bf' : '#0e9488',
                 fontWeight: 600,
                 fontSize: 14,
                 cursor: 'pointer',
@@ -59,33 +61,33 @@ export default function DataTableClient({columns, dataPromise} : {
       withColumnBorders: false,
       withBorder: false,
       sx: {
-        backgroundColor: '#232b32',
+        backgroundColor: isDark ? '#232b32' : '#f7fafc',
         borderRadius: 8,
         overflow: 'hidden',
         boxShadow: '0 2px 16px rgba(0,0,0,0.15)',
-        'thead > tr': { backgroundColor: '#2d3841' },
+        'thead > tr': { backgroundColor: isDark ? '#2d3841' : '#e2e8f0' },
         'thead > tr > th': { 
-          backgroundColor: '#2d3841',
+          backgroundColor: isDark ? '#2d3841' : '#e2e8f0',
           fontWeight: 700,
           fontSize: 15,
-          color: '#bfc9d1',
+          color: isDark ? '#bfc9d1' : '#374151',
           border: 'none',
         },
         'tbody > tr': {
           transition: 'background 0.2s',
           '&:nth-of-type(even)': {
-            backgroundColor: '#28313a',
+            backgroundColor: isDark ? '#28313a' : '#f1f5f9',
           },
           '&:hover': {
-            backgroundColor: '#47444b',
-            color: '#222',
+            backgroundColor: isDark ? '#47444b' : '#e0e7ef',
+            color: isDark ? '#222' : '#222',
           },
         },
         'tbody > tr > td': { 
           backgroundColor: 'inherit',
           fontWeight: 500,
           fontSize: 15,
-          color: '#fff',
+          color: isDark ? '#fff' : '#222',
           border: 'none',
         },
       },
