@@ -1,5 +1,5 @@
 'use client';
-import { Container, useMantineTheme, ActionIcon, useMantineColorScheme } from '@mantine/core';
+import { useMantineTheme, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import Image from 'next/image';
 // FontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

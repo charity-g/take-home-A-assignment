@@ -6,6 +6,9 @@ import Header from './header';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { use } from 'react';
 import { FormData } from './types';
+// import { CreateQueryModal } from './create-query-modal';
+// import { ViewQueryModal } from './view-query-modal';
+// import { ResolvedQueryModal } from './resolve-query-modal';
 
 
 export default function ManageFormDataApp({dataPromise} : {
@@ -19,6 +22,11 @@ export default function ManageFormDataApp({dataPromise} : {
 
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        
+        {/* <CreateQueryModal opened={false} onClose={()=>{}} />
+        <ViewQueryModal opened={false} onClose={()=>{}} />
+        <ResolvedQueryModal opened={true} onClose={()=>{}} /> */}
+        
       <MantineProvider
         theme={{
           colorScheme,
