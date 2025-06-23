@@ -19,12 +19,22 @@ export default function ManageFormDataApp({dataPromise} : {
 
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+      <MantineProvider
+        theme={{
+          colorScheme,
+          fontFamily: "'Noto Sans', 'Inclusive Sans', sans-serif",
+          headings: {
+            fontFamily: "'Noto Sans', 'Poppins', 'Inclusive Sans', sans-serif",
+          },
+        }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
         <Header />
         <div className="container mx-auto p-6">
             <DataTable data={data}/>
         </div>
-        </MantineProvider>
+      </MantineProvider>
     </ColorSchemeProvider>
   )
 }

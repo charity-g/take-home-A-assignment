@@ -18,8 +18,8 @@ export default function Header() {
         color: isDark ? '#fff' : '#232b32',
       }}
     >
-      <Container size="md" className='flex items-center justify-between'>
-        <div className='flex items-center'>
+      <div className='flex w-full px-8 justify-between'>
+        <div className='flex items-center ml-4'>
           <Image
             src="/vialtrials_logo.jpg"
             alt="Vial Logo"
@@ -31,6 +31,7 @@ export default function Header() {
               Vial - Query Management Application
           </h1>
         </div>
+        <div className='flex items-center space-x-4'>   
         <ActionIcon
           variant="outline"
           color={isDark ? 'yellow' : 'blue'}
@@ -40,7 +41,8 @@ export default function Header() {
         >
           <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
         </ActionIcon>
-      </Container>
+        </div>
+      </div>
     </header>
   );
 }

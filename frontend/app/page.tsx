@@ -7,7 +7,6 @@ export default async function Home() {
   const data = getFormData();
   return (
     <div className="min-h-screen">
-      
         <Suspense fallback={<div>Loading...</div>}>
           <ManageFormDataApp dataPromise={data} />
         </Suspense>
