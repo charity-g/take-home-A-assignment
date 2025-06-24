@@ -67,7 +67,7 @@ async function queryRoutes(app: FastifyInstance) {
   }>('/update', {
     async handler(req, reply) {
       const { resolve, query_id } = req.body
-      if (!resolve || !query_id) {
+      if (typeof resolve !== 'boolean' || !query_id) {
         throw new ApiError('resolve and id query parameter is required', 400)
       }
 

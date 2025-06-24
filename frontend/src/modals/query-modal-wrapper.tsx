@@ -17,7 +17,7 @@ import { Query, FormData } from '../types'
 
 interface QueryModalWrapperProps {
   opened: boolean
-  onClose: () => void
+  onClose: (edited: boolean) => void
   data: FormData
   query?: Query
   children: React.ReactNode
@@ -33,7 +33,7 @@ export default function QueryModalWrapper({
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={() => onClose(false)}
       title={
         <div className="flex items-center justify-between w-full pr-8">
           <Text size="lg" className="font-bold text-gray-900">

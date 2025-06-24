@@ -9,7 +9,7 @@ import { createQuery } from '../actions/actions'
 interface CreateQueryModalProps {
   opened: boolean
   data: FormData
-  onClose: () => void
+  onClose: (edited: boolean) => void
 }
 
 export function CreateQueryModal({
@@ -20,12 +20,12 @@ export function CreateQueryModal({
   const [remark, setRemark] = useState('')
   const [failed, setFailed] = useState(false)
 
-  const handleCreate = () => {
-    createQuery(data.question, remark, data.id)
+  const handleCreate = async () => {
+    await createQuery(data.question, remark, data.id)
       .then(success => {
         if (success) {
           setRemark('')
-          onClose()
+          onClose(true)
         } else {
           setFailed(true)
           const timer = setTimeout(() => {

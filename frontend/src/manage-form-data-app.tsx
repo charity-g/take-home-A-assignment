@@ -14,19 +14,29 @@ import { CreateQueryModal } from './modals/create-query-modal'
 import { ViewQueryModal } from './modals/view-query-modal'
 import { ResolvedQueryModal } from './modals/resolve-query-modal'
 import { ModalTypes } from './types'
+import { getFormData } from './actions/actions'
 
 export default function ManageFormDataApp({
   dataPromise,
 }: {
   dataPromise: Promise<FormDataWithQuery[]>
 }) {
-  const data = use(dataPromise)
+  const [currentDataPromise, setCurrentDataPromise] = useState(dataPromise)
+  const data = use(currentDataPromise)
   const [modalOpen, setModalOpen] = useState<ModalTypes | null>(null)
   const [modalData, setModalData] = useState<FormDataWithQuery | null>(null)
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark')
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(current => value || (current === 'dark' ? 'light' : 'dark'))
+
+  const handleModalClose = (edited: boolean) => {
+    setModalData(null)
+    setModalOpen(null)
+    if (edited) {
+      setCurrentDataPromise(getFormData())
+    }
+  }
 
   return (
     <ColorSchemeProvider
@@ -38,25 +48,19 @@ export default function ManageFormDataApp({
           <CreateQueryModal
             opened={true}
             data={modalData}
-            onClose={() => {
-              setModalOpen(null)
-            }}
+            onClose={handleModalClose}
           />
         ) : (
           <>
             <ViewQueryModal
               opened={modalOpen === ModalTypes.View}
               data={modalData}
-              onClose={() => {
-                setModalOpen(null)
-              }}
+              onClose={handleModalClose}
             />
             <ResolvedQueryModal
               opened={modalOpen === ModalTypes.Resolve}
               data={modalData}
-              onClose={() => {
-                setModalOpen(null)
-              }}
+              onClose={handleModalClose}
             />
           </>
         ))}

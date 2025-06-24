@@ -13,14 +13,13 @@ export async function getFormData(): Promise<FormDataWithQuery[]> {
       form.query = query[0]
     }
   }
-  console.log('getFormData called, returning:', formdata)
   return formdata
 }
 
 export async function createQuery(
   title: string,
   description: string,
-  formDataId: string
+  form_data_id: string
 ) {
   const url = 'http://127.0.0.1:8080/query/create'
   return await fetch(url, {
@@ -31,7 +30,7 @@ export async function createQuery(
     body: JSON.stringify({
       title,
       description,
-      formDataId,
+      form_data_id,
     }),
   }).then(response => {
     if (!response.ok) {
@@ -42,10 +41,10 @@ export async function createQuery(
 }
 
 export async function updateQuery(
-  resolved: boolean,
+  resolve: boolean,
   title: string,
   description: string,
-  queryId: string
+  query_id: string
 ) {
   const url = 'http://127.0.0.1:8080/query/update'
   return await fetch(url, {
@@ -54,8 +53,8 @@ export async function updateQuery(
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      resolved,
-      queryId,
+      resolve,
+      query_id,
     }),
   })
     .then(response => {
