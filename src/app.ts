@@ -5,12 +5,19 @@ import queryRoutes from './routes/query'
 import errorHandler from './errors'
 
 function build(opts = {}) {
-  const app = fastify(opts)
+  const app = fastify({
+    ...opts,
+  })
 
   app.register(formDataRoutes, { prefix: '/form-data' })
   app.register(queryRoutes, { prefix: '/query' })
 
   app.setErrorHandler(errorHandler)
+
+  app.ready(err => {
+    if (err) throw err
+    console.log(app.printRoutes())
+  })
 
   return app
 }

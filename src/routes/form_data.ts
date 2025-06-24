@@ -7,7 +7,8 @@ import { ApiError } from '../errors'
 
 async function formDataRoutes(app: FastifyInstance) {
   app.setReplySerializer(serializer)
-
+  
+  app.log.info('formDataRoutes registered')
   const log = app.log.child({ component: 'formDataRoutes' })
 
   app.get<{

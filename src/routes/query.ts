@@ -7,13 +7,22 @@ import { ApiError } from '../errors'
 
 async function queryRoutes(app: FastifyInstance) {
   app.setReplySerializer(serializer)
-
+  app.log.info('queryRoutes registered')
   const log = app.log.child({ component: 'queryRoutes' })
+
+  app.get<{
+    Querystring: { form_data_id?: string }
+    Reply: { test: string }
+  }>('/', {
+    async handler(req, reply) {
+      reply.send({ test: 'Query endpoint is working' })
+    },
+  })
 
   app.post<{
     Body: ICreatedBody
     Reply: ICreatedQuery
-  }>('create', {
+  }>('/create', {
     async handler(req, reply) {
       const { title, description, form_data_id } = req.body
       if (!description || !form_data_id) {
@@ -47,7 +56,7 @@ async function queryRoutes(app: FastifyInstance) {
         })
       } catch (err: any) {
         log.error({ err }, err.message)
-        throw new ApiError('failed to fetch form data', 400)
+        throw new ApiError('failed to create query', 400)
       }
     },
   })
@@ -55,7 +64,7 @@ async function queryRoutes(app: FastifyInstance) {
   app.put<{
     Body: { resolve: boolean; query_id: string }
     Reply: ICreatedQuery
-  }>('update', {
+  }>('/update', {
     async handler(req, reply) {
       const { resolve, query_id } = req.body
       if (!resolve || !query_id) {
@@ -84,7 +93,7 @@ async function queryRoutes(app: FastifyInstance) {
   app.delete<{
     Body: { id: string }
     Reply: { message: string }
-  }>('delete', {
+  }>('/delete', {
     async handler(req, reply) {
       const { id } = req.body
       if (!id) {
