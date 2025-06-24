@@ -63,7 +63,8 @@ Although this is not a required component of the project, in reality, I would wa
 
 ## Suggestions for Future Design:
 - **Suggested Queries/Autopopulate Query** feature: 
-Since these questions in `FormData` are repeated many times over for multiple users, I'd like to ad autopopulation within the form
+Since these questions in `FormData` are repeated many times over for multiple users, I'd like to add autopopulation for new `Formdata` if they have a similar question and answer to `FormData` records that we have created queries previously.
+- On a similar note, giving the user the ability to autopopulate all questions with this same `FormData` would also be a huge time-saver on the patient
 
 ---
 
