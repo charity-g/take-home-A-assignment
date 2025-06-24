@@ -14,13 +14,15 @@ import { CreateQueryModal } from './modals/create-query-modal'
 import { ViewQueryModal } from './modals/view-query-modal'
 import { ResolvedQueryModal } from './modals/resolve-query-modal'
 import { ModalTypes } from './types'
+import { getFormData } from './actions/actions'
 
 export default function ManageFormDataApp({
   dataPromise,
 }: {
   dataPromise: Promise<FormDataWithQuery[]>
 }) {
-  const data = use(dataPromise)
+  const [currentDataPromise, setCurrentDataPromise] = useState(dataPromise)
+  const data = use(currentDataPromise)
   const [modalOpen, setModalOpen] = useState<ModalTypes | null>(null)
   const [modalData, setModalData] = useState<FormDataWithQuery | null>(null)
 
@@ -31,6 +33,9 @@ export default function ManageFormDataApp({
   const handleModalClose = (edited: boolean) => {
     setModalData(null)
     setModalOpen(null)
+    if (edited) {
+      setCurrentDataPromise(getFormData())
+    }
   }
 
   return (
