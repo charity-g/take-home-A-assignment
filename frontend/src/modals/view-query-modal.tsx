@@ -27,10 +27,6 @@ export function ViewQueryModal({ opened, data, onClose }: ViewQueryModalProps) {
     }
   }, [failed])
 
-  if (!data || !data.query) {
-    return null
-  }
-
   const query: Query = data.query as Query
   const handleResolve = () => {
     updateQuery(true, query.title, query.description, query.id)
@@ -48,7 +44,12 @@ export function ViewQueryModal({ opened, data, onClose }: ViewQueryModalProps) {
   }
 
   return (
-    <QueryModalWrapper opened={opened} onClose={onClose} query={query}>
+    <QueryModalWrapper
+      opened={opened}
+      onClose={onClose}
+      data={{ id: data.id, question: data.question, answer: data.answer }}
+      query={query}
+    >
       {failed && (
         <Alert color="red" title="Error" mb="md">
           Failed to resolve query.
@@ -60,7 +61,7 @@ export function ViewQueryModal({ opened, data, onClose }: ViewQueryModalProps) {
           <div className="flex items-start gap-2">
             <Text size="md" className="text-gray-800 leading-relaxed">
               <strong> Description: </strong>
-              {data.query.description || 'No description provided.'}
+              {query.description || 'No description provided.'}
             </Text>
           </div>
           <Button

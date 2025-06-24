@@ -22,7 +22,7 @@ export async function createQuery(
   description: string,
   formDataId: string
 ) {
-  const url = 'http://127.0.0.1:8080/create-query'
+  const url = 'http://127.0.0.1:8080/query/create'
   return await fetch(url, {
     method: 'POST',
     headers: {
@@ -46,9 +46,8 @@ export async function updateQuery(
   title: string,
   description: string,
   queryId: string
-): Promise<boolean> {
-  //TODO
-  const url = 'http://127.0.0.1:8080/update-query'
+) {
+  const url = 'http://127.0.0.1:8080/query/update'
   return await fetch(url, {
     method: 'PUT',
     headers: {
@@ -56,16 +55,20 @@ export async function updateQuery(
     },
     body: JSON.stringify({
       resolved,
-      title,
-      description,
       queryId,
     }),
-  }).then(response => {
-    if (!response.ok) {
-      return false
-    }
-    return true
   })
+    .then(response => {
+      console.log('updateQuery response:', response)
+      if (!response.ok) {
+        return false
+      }
+      return true
+    })
+    .catch(error => {
+      console.error('Error updating query:', error)
+      return false
+    })
 }
 
 export async function deleteQuery(formDataId: string) {

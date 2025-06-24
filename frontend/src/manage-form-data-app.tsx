@@ -33,15 +33,33 @@ export default function ManageFormDataApp({
       colorScheme={colorScheme}
       toggleColorScheme={toggleColorScheme}
     >
-      {/* <CreateQueryModal opened={modalOpen === ModalTypes.Create} data={modalData} onClose={()=>{setModalOpen(null)}} /> */}
-      <ViewQueryModal
-        opened={modalOpen === ModalTypes.View}
-        data={modalData}
-        onClose={() => {
-          setModalOpen(null)
-        }}
-      />
-      {/* <ResolvedQueryModal opened={modalOpen === ModalTypes.Resolve} data={modalData} onClose={()=>{setModalOpen(null)}} /> */}
+      {modalData &&
+        (modalOpen === ModalTypes.Create ? (
+          <CreateQueryModal
+            opened={true}
+            data={modalData}
+            onClose={() => {
+              setModalOpen(null)
+            }}
+          />
+        ) : (
+          <>
+            <ViewQueryModal
+              opened={modalOpen === ModalTypes.View}
+              data={modalData}
+              onClose={() => {
+                setModalOpen(null)
+              }}
+            />
+            <ResolvedQueryModal
+              opened={modalOpen === ModalTypes.Resolve}
+              data={modalData}
+              onClose={() => {
+                setModalOpen(null)
+              }}
+            />
+          </>
+        ))}
 
       <MantineProvider
         theme={{
