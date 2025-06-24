@@ -1,4 +1,11 @@
 "use server"
+import { FormData } from '../types';
+
+export async function getFormData() : Promise<FormData[]> {
+    const response = await fetch('http://127.0.0.1:8080/form-data');
+    const data = (await response.json())['data']['formData'] as FormData[];
+    return data;
+}
 
 export async function createQuery(title: string, description: string, formDataId: string) {
     const url = 'http://127.0.0.1:8080/create-query'

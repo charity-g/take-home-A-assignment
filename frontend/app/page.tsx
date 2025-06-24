@@ -1,13 +1,15 @@
-import DataTable from '@/src/data-table'
-import Header from '@/src/header'
+import { getFormData } from '@/src/actions/actions';
+import { Suspense } from 'react';
+import ManageFormDataApp from '@/src/manage-form-data-app';
 
-export default function Home() {
+export default async function Home() {
+
+  const data = getFormData();
   return (
     <div className="min-h-screen">
-      <Header />
-      <div className="container mx-auto p-6">
-        <DataTable />
-      </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ManageFormDataApp dataPromise={data} />
+        </Suspense>
     </div>
   )
 }
