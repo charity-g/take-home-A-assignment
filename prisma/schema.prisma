@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma"
 }
 
 datasource db {
@@ -12,7 +11,7 @@ datasource db {
 }
 
 model FormData {
-  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question String
   answer   String
   Query    Query?
@@ -27,8 +26,8 @@ model Query {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   status      Status   @default(OPEN)
-  form_data   FormData @relation(fields: [formDataId], references: [id])
-  formDataId  String   @db.Uuid @unique
+  formData    FormData @relation(fields: [formDataId], references: [id])
+  formDataId  String   @unique @db.Uuid
 
   @@map("query")
 }

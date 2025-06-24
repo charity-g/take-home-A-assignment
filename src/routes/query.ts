@@ -38,10 +38,7 @@ async function queryRoutes(app: FastifyInstance) {
             status: 'OPEN',
             createdAt: new Date(),
             updatedAt: new Date(),
-            formData: {
-              connect: { id: form_data_id },
-            },
-            formDataId: form_data_id,
+            formData: { connect: { id: form_data_id } },
           },
         })
 

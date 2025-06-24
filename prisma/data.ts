@@ -55,6 +55,11 @@ export const getSeedData = async () => {
       answer:
         'Occasionally, I experience eye strain after long periods of screen use.',
     },
+    {
+      id: 'd5088875-10f1-4ce7-8e78-eb997bfca7da',
+      question: 'test question for postman',
+      answer: 'test answer for postman',
+    },
   ]
 
   const queries = [

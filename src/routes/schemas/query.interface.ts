@@ -5,19 +5,19 @@ export interface ICreatedBody {
 }
 
 export interface IQuery {
-    id: string
-    title: string
-    description: string
-    status: string
-    createdAt: Date
-    updatedAt: Date
-    formData: {
-      id: string
-      question: string
-      answer: string
-    }
-    formDataId: string
-  }
+  id: string
+  title: string
+  description: string
+  status: string
+  createdAt: Date
+  updatedAt: Date
+  // formData: {
+  //   id: string
+  //   question: string
+  //   answer: string
+  // }
+  formDataId: string
+}
 
 export interface ICreatedQuery {
   query: IQuery

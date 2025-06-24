@@ -1,0 +1,65 @@
+name: backend_tests
+
+on:
+  push:
+    branches:
+      - cg/**
+
+jobs:
+  newman_tests:
+    environment: backend_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:   
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Newman dependency
+        working-directory: ./backend/tests
+        run: npm install newman
+
+      - name: Run the API and Postman's tests
+        working-directory: ./postman-tests
+        run: newman run "Vial Backend API tests.postman_collection.json"
+
+    environment: backend_tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        working-directory: ./backend/tests
+        run: |
+          python -m venv venv
+          . venv/bin/activate
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create .env file
+        working-directory: ./backend/tests
+        run: |
+          echo SUPABASE_EDGEFN_API_KEY=${{ secrets.SUPABASE_EDGEFN_API_KEY }} > .env
+        
+      - name: Run Python unittests
+        working-directory: ./backend/tests
+        run: |
+          . venv/bin/activate
+          python -m unittest discover

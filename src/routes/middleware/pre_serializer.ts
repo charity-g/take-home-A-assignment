@@ -1,10 +1,10 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyReply, FastifyRequest } from "fastify";
 
 type VialSuccessResponse = {
-  statusCode: number
-  message: string
-  data: any
-}
+  statusCode: number;
+  message: string;
+  data: any;
+};
 
 const preSerializer = async (
   request: FastifyRequest,
@@ -16,16 +16,16 @@ const preSerializer = async (
   return {
     statusCode: reply.statusCode,
     data: payload,
-    message: 'success',
-  }
-}
+    message: "success",
+  };
+};
 
 export function serializer(data: any, statusCode: number) {
   return JSON.stringify({
     statusCode,
     data,
-    message: 'success',
-  })
+    message: "success",
+  });
 }
 
-export default preSerializer
+export default preSerializer;
