@@ -1,11 +1,11 @@
 export interface IFormData {
-  id: string
-  question: string
-  answer: string
+  id: string;
+  question: string;
+  answer: string;
 }
 
 export interface ICountedFormData {
-  total: number
-  formData: IFormData[]
-  query?: any[]
+  total: number;
+  formData: IFormData[];
+  query?: any[];
 }

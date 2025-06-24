@@ -7,14 +7,14 @@ import { ApiError } from '../errors'
 
 async function formDataRoutes(app: FastifyInstance) {
   app.setReplySerializer(serializer)
-
+  
+  app.log.info('formDataRoutes registered')
   const log = app.log.child({ component: 'formDataRoutes' })
 
   app.get<{
     Reply: ICountedFormData
   }>('', {
     async handler(req, reply) {
-      log.debug('get form data')
       try {
         const formData = await prisma.formData.findMany({})
         const query = await prisma.query.findMany({})

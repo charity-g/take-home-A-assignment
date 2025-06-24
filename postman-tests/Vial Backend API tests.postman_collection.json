@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "cd6f3df3-313c-4fd1-aa1b-0888038d7ede",
+		"name": "Vial Backend API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37434363",
+		"_collection_link": "https://xpressselect.postman.co/workspace/My-Workspace~22c7b7d7-e55e-4d61-8d86-8f945ff91fd3/collection/37434363-cd6f3df3-313c-4fd1-aa1b-0888038d7ede?action=share&source=collection_link&creator=37434363"
+	},
+	"item": [
+		{
+			"name": "create query",
+			"item": [
+				{
+					"name": "create query - pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"form_data_id\": \"d5088875-10f1-4ce7-8e78-eb997bfca7da\",\r\n    \"title\": \"test title\",\r\n    \"description\": \"test description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create query - fail invalid id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"form_data_id\": \"invalid_id\",\r\n    \"title\": \"test title\",\r\n    \"description\": \"test description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create query - fail missing form-data-id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"title\": \"test title\",\r\n    \"description\": \"test description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/create",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "update query",
+			"item": [
+				{
+					"name": "resolve query - fail invalid id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/update",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resolve query - pass - resolve",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://127.0.0.1:8080/query/create',\r",
+									"    method: 'POST',\r",
+									"    body: JSON.stringify({\r",
+									"    \"form_data_id\": \"test-insert-query-before\",\r",
+									"    \"title\": \"test title\",\r",
+									"    \"description\": \"test description\"\r",
+									"})\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log('Error:', err);\r",
+									"        return;\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resolve\": true,\r\n    \"query_id\": \"test-insert-query-before\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/update",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resolve query - pass - not resolve",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'http://127.0.0.1:8080/query/create',\r",
+									"    method: 'POST',\r",
+									"    body: JSON.stringify({\r",
+									"    \"form_data_id\": \"test-insert-query-before\",\r",
+									"    \"title\": \"test title\",\r",
+									"    \"description\": \"test description\"\r",
+									"})\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.log('Error:', err);\r",
+									"        return;\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"resolve\": false,\r\n    \"query_id\": \"test-insert-query-before\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/query/update",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"query",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "get form-data",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "query blank route should fail",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/query",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
