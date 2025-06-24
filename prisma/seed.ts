@@ -6,7 +6,6 @@ const client = new PrismaClient()
 
 const deleteAllRecords = async () => {
   // Deletion order is important due to non-null relation constraints.
-
   await client.query.deleteMany()
   await client.formData.deleteMany()
 
@@ -20,18 +19,24 @@ const createAllRecords = async () => {
   for (const queryObj of data.queries) {
     await client.query.create({
       data: {
-        ...queryObj,
+        id: queryObj.id,
+        title: queryObj.title,
+        description: queryObj.description,
+        status: 'OPEN',
+        createdAt: new Date(),
+        updatedAt: new Date(),
         formData: {
           connect: { id: queryObj.formDataId },
         },
       },
     })
-  };
+  }
 
   console.log('All records created')
 }
 
 async function seed() {
+  console.log('Seeding database...')
   await deleteAllRecords()
   await createAllRecords()
 }

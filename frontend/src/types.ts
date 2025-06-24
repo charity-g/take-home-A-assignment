@@ -4,18 +4,30 @@ export type FormData = {
   answer: string
 }
 
+export type FormDataWithQuery = {
+  id: string
+  question: string
+  answer: string
+  query?: Query
+}
+
 export type Query = {
   id: string
   title: string
   description: string
+  status: 'OPEN' | 'CLOSED'
   createdAt?: string
   updatedAt?: string
-  formData?: FormData,
   formDataId: string
 }
 
 export type MantineHeader = {
-  accessorKey: string,
-  header: string,
+  accessorKey: string
+  header: string
 }
-  
+
+export enum ModalTypes {
+  Create,
+  View,
+  Resolve,
+}
