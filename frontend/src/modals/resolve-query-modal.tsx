@@ -1,20 +1,25 @@
-"use client"
+'use client'
 
-import { Text, Group, Avatar } from "@mantine/core"
-import QueryModalWrapper from "./query-modal-wrapper";
+import { Text, Group, Avatar } from '@mantine/core'
+import QueryModalWrapper from './query-modal-wrapper'
+import { FormDataWithQuery } from '../types'
 
 interface ResolvedQueryModalProps {
   opened: boolean
+  modalData: FormDataWithQuery
   onClose: () => void
 }
 
-export function ResolvedQueryModal({ opened, onClose }: ResolvedQueryModalProps) {
-  opened = true;
+export function ResolvedQueryModal({
+  opened,
+  onClose,
+}: ResolvedQueryModalProps) {
+  opened = true
   return (
     <QueryModalWrapper
       opened={opened}
       onClose={onClose}
-      formdata_title='hardcoded title for resolved query'
+      formdata_title="hardcoded title for resolved query"
     >
       <div className="space-y-4">
         {/* Status Header */}
