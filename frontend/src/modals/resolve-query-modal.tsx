@@ -8,7 +8,7 @@ import { FormDataWithQuery, Query } from '../types'
 interface ResolvedQueryModalProps {
   opened: boolean
   data: FormDataWithQuery
-  onClose: () => void
+  onClose: (edited: boolean) => void
 }
 
 export function ResolvedQueryModal({

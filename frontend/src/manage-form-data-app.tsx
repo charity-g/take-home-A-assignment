@@ -28,6 +28,11 @@ export default function ManageFormDataApp({
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(current => value || (current === 'dark' ? 'light' : 'dark'))
 
+  const handleModalClose = (edited: boolean) => {
+    setModalData(null)
+    setModalOpen(null)
+  }
+
   return (
     <ColorSchemeProvider
       colorScheme={colorScheme}
@@ -38,25 +43,19 @@ export default function ManageFormDataApp({
           <CreateQueryModal
             opened={true}
             data={modalData}
-            onClose={() => {
-              setModalOpen(null)
-            }}
+            onClose={handleModalClose}
           />
         ) : (
           <>
             <ViewQueryModal
               opened={modalOpen === ModalTypes.View}
               data={modalData}
-              onClose={() => {
-                setModalOpen(null)
-              }}
+              onClose={handleModalClose}
             />
             <ResolvedQueryModal
               opened={modalOpen === ModalTypes.Resolve}
               data={modalData}
-              onClose={() => {
-                setModalOpen(null)
-              }}
+              onClose={handleModalClose}
             />
           </>
         ))}

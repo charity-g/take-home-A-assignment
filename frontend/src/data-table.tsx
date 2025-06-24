@@ -65,7 +65,6 @@ export default function DataTable({
   data: FormDataWithQuery[]
   displayModal: (modal: ModalTypes, data: FormDataWithQuery) => void
 }) {
-  console.log('Rendering DataTable with data:', data)
   const theme = useMantineTheme()
   const isDark = theme.colorScheme === 'dark'
 

@@ -11,7 +11,7 @@ import { updateQuery } from '../actions/actions'
 interface ViewQueryModalProps {
   opened: boolean
   data: FormDataWithQuery
-  onClose: () => void
+  onClose: (edited: boolean) => void
 }
 
 export function ViewQueryModal({ opened, data, onClose }: ViewQueryModalProps) {
@@ -32,7 +32,7 @@ export function ViewQueryModal({ opened, data, onClose }: ViewQueryModalProps) {
     updateQuery(true, query.title, query.description, query.id)
       .then(updated => {
         if (updated) {
-          onClose()
+          onClose(true)
         } else {
           setFailed(true)
         }
