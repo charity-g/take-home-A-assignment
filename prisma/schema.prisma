@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/.prisma"
 }
 
 datasource db {
@@ -14,7 +15,7 @@ model FormData {
   id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question String
   answer   String
-  Query    Query[]
+  Query    Query?
 
   @@map("form_data")
 }
@@ -25,6 +26,14 @@ model Query {
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  status      Status   @default(OPEN)
   form_data   FormData @relation(fields: [formDataId], references: [id])
-  formDataId  String
+  formDataId  String   @db.Uuid @unique
+
+  @@map("query")
+}
+
+enum Status {
+  RESOLVED
+  OPEN
 }

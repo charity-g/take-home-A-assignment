@@ -57,7 +57,23 @@ export const getSeedData = async () => {
     },
   ]
 
+  const queries = [
+    {
+      id: randomUUID(),
+      title: 'Wrong answer',
+      description: 'Placeholder query with wrong answer',
+      formDataId: formData[0].id,
+    },
+    {
+      id: randomUUID(),
+      title: 'Not standardized',
+      description: 'Place holder query with not standardized answer',
+      formDataId: formData[2].id,
+    },
+  ]
+
   return {
     formData,
+    queries
   }
 }

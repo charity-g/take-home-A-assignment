@@ -7,4 +7,5 @@ export interface IFormData {
 export interface ICountedFormData {
   total: number
   formData: IFormData[]
+  query?: any[]
 }
