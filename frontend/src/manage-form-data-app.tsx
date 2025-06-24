@@ -5,14 +5,14 @@ import DataTable from './data-table';
 import Header from './header';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { use } from 'react';
-import { FormData } from './types';
+import { FormDataWithQuery } from './types';
 // import { CreateQueryModal } from './create-query-modal';
 // import { ViewQueryModal } from './view-query-modal';
 // import { ResolvedQueryModal } from './resolve-query-modal';
 
 
 export default function ManageFormDataApp({dataPromise} : {
-  dataPromise: Promise<FormData[]>
+  dataPromise: Promise<FormDataWithQuery[]>
 }) {
   const data = use(dataPromise);
 

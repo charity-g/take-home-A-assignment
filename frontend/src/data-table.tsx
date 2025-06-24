@@ -1,10 +1,12 @@
 'use client'
-import { FormData, MantineHeader } from './types'
+import { FormDataWithQuery, MantineHeader } from './types'
 import { useMantineTheme } from '@mantine/core'
 import {
   MantineReactTable,
   useMantineReactTable,
 } from 'mantine-react-table'
+import PlusButton from './plus-button'
+import StatusButton from './status-button'
 
 const columns : MantineHeader[] = [
     {
@@ -14,6 +16,10 @@ const columns : MantineHeader[] = [
     {
       accessorKey: 'answer',
       header: 'Answer',
+    },
+    {
+      accessorKey: 'query',
+      header: 'Query',
     },
 ];
 
@@ -55,57 +61,61 @@ const mantineTableStyling = (isDark: boolean) => ({
         }
 );
 
+
+
 export default function DataTable({data} : {
-  data: FormData[]}) {
+  data: FormDataWithQuery[]}) {
+    console.log('Rendering DataTable with data:', data);
     const theme = useMantineTheme();
-    
-      const isDark = theme.colorScheme === 'dark';
-    
-      const table = useMantineReactTable({
-        columns: columns.map(col => {
-          // Add custom cell renderers for "Status" and "Action" columns
-          if (col.accessorKey === 'status') {
-            return {
-              ...col,
-              Cell: ({ cell } : {cell: React.ReactNode}) => (
-                <span
-                  style={{
-                    background: isDark ? '#3b2323' : '#f8d7da',
-                    color: isDark ? '#ffb4b4' : '#c82333',
-                    borderRadius: 12,
-                    padding: '2px 12px',
-                    fontWeight: 600,
-                    fontSize: 14,
-                    display: 'inline-block',
+    const isDark = theme.colorScheme === 'dark';
+  
+    const table = useMantineReactTable({
+      columns: columns.map(col => {
+        // Add custom cell renderers for "Status" and "Action" columns
+        if (col.accessorKey === 'query') {
+          return {
+            ...col,
+            Cell: ({ cell }) => {
+             const hasQuery = cell.getValue();
+             return hasQuery ? 
+             <StatusButton
+                status={hasQuery['status']}
+                onClick={() => {
+                  console.log('Query clicked:', cell.row.original);
+                }}
+             /> : (
+                <PlusButton
+                  onClick={() => {
+                    // Handle the click event to create a new query
+                    console.log('Create Query button clicked for:', hasQuery['status'], cell.row.original);
                   }}
-                >
-                  {cell.getValue()}
-                </span>
-              ),
-            };
-          }
-          if (col.accessorKey === 'action') {
-            return {
-              ...col,
-              Cell: ({ cell } : {cell: React.ReactNode}) => (
-                <span
-                  style={{
-                    color: isDark ? '#2dd4bf' : '#0e9488',
-                    fontWeight: 600,
-                    fontSize: 14,
-                    cursor: 'pointer',
-                  }}
-                >
-                  {cell.getValue()}
-                </span>
-              ),
-            };
-          }
-          return col;
-        }),
-        data,
-        mantineTableProps: mantineTableStyling(isDark),
-      });
+                  label="Create Query"
+                />
+              )
+            },
+          };
+        } else if (col.accessorKey === 'status') {
+          return {
+            ...col,
+            Cell: ({ cell } : {cell: React.ReactNode}) => (
+              <span
+                style={{
+                  color: isDark ? '#2dd4bf' : '#0e9488',
+                  fontWeight: 600,
+                  fontSize: 14,
+                  cursor: 'pointer',
+                }}
+              >
+                {cell.getValue()}
+              </span>
+            ),
+          };
+        }
+        return col;
+      }),
+      data,
+      mantineTableProps: mantineTableStyling(isDark),
+    });
     
 
   return (

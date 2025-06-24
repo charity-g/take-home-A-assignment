@@ -1,10 +1,20 @@
 "use server"
-import { FormData } from '../types';
+import { FormDataWithQuery, Query} from '../types';
 
-export async function getFormData() : Promise<FormData[]> {
+export async function getFormData() : Promise<FormDataWithQuery[]> {
     const response = await fetch('http://127.0.0.1:8080/form-data');
-    const data = (await response.json())['data']['formData'] as FormData[];
-    return data;
+    const json = await response.json();
+    const formdata = json['data']['formData'] as FormDataWithQuery[];
+    const queries = json['data']['query'] as Query[];
+
+    for (const form of formdata) {
+        const query = queries.filter(query => query.formDataId === form.id);
+        if (query.length > 0) {
+            form.query = query[0];
+        }
+    }
+    console.log('getFormData called, returning:', formdata);
+    return formdata;
 }
 
 export async function createQuery(title: string, description: string, formDataId: string) {
