@@ -70,7 +70,7 @@ export const getSeedData = async () => {
       formDataId: formData[0].id,
     },
     {
-      id: randomUUID(),
+      id: '716a7d9b-adcf-4f3d-9215-553d2b3cd975',
       title: 'Not standardized',
       description: 'Place holder query with not standardized answer',
       formDataId: formData[2].id,
@@ -79,6 +79,6 @@ export const getSeedData = async () => {
 
   return {
     formData,
-    queries
+    queries,
   }
 }

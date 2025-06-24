@@ -3,6 +3,14 @@
 
 # Deployment
 
+- `docker-compose build`
+- `docker-compose up`
+- `npm run migrate`
+- `npm run seed`
+In a seperate terminal
+- `cd frontend`
+- `npm run dev`
+
 # API documentation
 
 ## Endpoints
