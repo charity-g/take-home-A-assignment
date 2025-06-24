@@ -5,8 +5,8 @@ import {
   MantineReactTable,
   useMantineReactTable,
 } from 'mantine-react-table'
-import PlusButton from './plus-button'
-import StatusButton from './status-button'
+import PlusButton from './buttons/plus-button'
+import StatusButton from './buttons/status-button'
 
 const columns : MantineHeader[] = [
     {

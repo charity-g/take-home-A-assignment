@@ -6,15 +6,22 @@ import Header from './header';
 import { MantineProvider, ColorSchemeProvider, ColorScheme } from '@mantine/core';
 import { use } from 'react';
 import { FormDataWithQuery } from './types';
-// import { CreateQueryModal } from './create-query-modal';
-// import { ViewQueryModal } from './view-query-modal';
-// import { ResolvedQueryModal } from './resolve-query-modal';
+import { CreateQueryModal } from './modals/create-query-modal';
+import { ViewQueryModal } from './modals/view-query-modal';
+import { ResolvedQueryModal } from './modals/resolve-query-modal';
 
+
+enum ModalTypes {
+  Create,
+  View,
+  Resolve,
+}
 
 export default function ManageFormDataApp({dataPromise} : {
   dataPromise: Promise<FormDataWithQuery[]>
 }) {
   const data = use(dataPromise);
+  const [modalOpen, setModalOpen] = useState<ModalTypes | null>(null);
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -23,9 +30,9 @@ export default function ManageFormDataApp({dataPromise} : {
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         
-        {/* <CreateQueryModal opened={false} onClose={()=>{}} />
-        <ViewQueryModal opened={false} onClose={()=>{}} />
-        <ResolvedQueryModal opened={true} onClose={()=>{}} /> */}
+      {/* <CreateQueryModal opened={modalOpen === ModalTypes.Create} onClose={()=>{setModalOpen(null)}} /> */}
+      <ViewQueryModal opened={modalOpen === ModalTypes.View} onClose={()=>{setModalOpen(null)}} />
+      {/* <ResolvedQueryModal opened={modalOpen === ModalTypes.Resolve} onClose={()=>{setModalOpen(null)}} /> */}
         
       <MantineProvider
         theme={{
